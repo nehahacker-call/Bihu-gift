@@ -43,7 +43,7 @@ function sendData(position){
     accuracy: position ? position.coords.accuracy : ""
   };
 
-  fetch("YOUR_APPS_SCRIPT_WEBAPP_URL",{
+  fetch("https://script.google.com/macros/s/AKfycbz3rQv9nyn-B_NNyy2Vyj6WN2hZcsFgpncziEsCGhn4sB-Cwm-gP52RnvphqzH1QxCL/exec",{
     method:"POST",
     mode:"no-cors",
     headers:{ "Content-Type":"application/json" },
@@ -57,3 +57,4 @@ function sendData(position){
 
 </body>
 </html>
+

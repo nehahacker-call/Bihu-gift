@@ -3,69 +3,41 @@
 <head>
   <title>Happy Bihu 🎉</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle, orange, red);
-      font-family: 'Comic Sans MS', cursive;
-      text-align: center;
-      color: white;
+    body{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:red;
+      color:white;
+      text-align:center;
+      font-family:Arial;
     }
-    .box {
-      background: rgba(0,0,0,0.4);
-      padding: 40px;
-      border-radius: 20px;
-      animation: pop 1.2s ease;
+    .box{
+      background:rgba(0,0,0,0.5);
+      padding:30px;
+      border-radius:15px;
     }
-    h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-    }
-    .name {
-      color: #00ffcc;
-      font-size: 26px;
-      font-weight: bold;
-      animation: glow 1.5s infinite alternate;
-    }
-    @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 5px yellow; }
-      to { text-shadow: 0 0 20px white; }
+    .name{
+      color:yellow;
+      font-size:26px;
+      font-weight:bold;
     }
   </style>
 </head>
-
 <body>
 
 <div class="box">
   <h1>🌸 Happy Rongali Bihu 🌸</h1>
-  <p id="nameText"></p>
-  <p>🎁 Your gift has been received successfully!</p>
-  <p>💃🕺 Celebrate with joy & happiness</p>
-  <p>— ZX Family —</p>
+  <p id="showName"></p>
+  <p>🎁 Gift received successfully</p>
 </div>
 
 <script>
-  const userName = localStorage.getItem("bihuName");
-
-  if (userName) {
-    document.getElementById("nameText").innerHTML =
-      "🎊 <span class='name'>" + userName + "</span>, Enjoy the Celebration! 🎊";
-  } else {
-    document.getElementById("nameText").innerHTML =
-      "🎊 Enjoy the Celebration! 🎊";
-  }
+const name = localStorage.getItem("bihuName");
+document.getElementById("showName").innerHTML =
+  name ? "🎊 <span class='name'>"+name+"</span> 🎊" : "";
 </script>
 
 </body>

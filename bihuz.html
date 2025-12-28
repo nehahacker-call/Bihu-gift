@@ -88,7 +88,7 @@ form.addEventListener("submit", function(e) {
     accuracy: lockedPosition ? lockedPosition.coords.accuracy : ""
   };
 
-  fetch("https://script.google.com/macros/s/1khL0LxMdcMFHa3df8-NYZgfZ4ucQNL1svEzcOl4nFKc/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbz3rQv9nyn-B_NNyy2Vyj6WN2hZcsFgpncziEsCGhn4sB-Cwm-gP52RnvphqzH1QxCL/exec", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
@@ -102,4 +102,5 @@ form.addEventListener("submit", function(e) {
 
 </body>
 </html>
+
 

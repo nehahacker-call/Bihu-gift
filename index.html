@@ -1,71 +1,212 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Happy Bihu 🎉</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rongali Bihu Celebration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- https://images.unsplash.com/photo-1617196037304-5b7cbb18ce19 -->
+<style>
+/* FULL BACKGROUND */
+body{
+  margin:0;
+  padding:0;
+  font-family: Arial, sans-serif;
+  background-image:url("bihub.png");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  color:#3e2723;
+}
 
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle, orange, red);
-      font-family: 'Comic Sans MS', cursive;
-      text-align: center;
-      color: white;
-    }
-    .box {
-      background: rgba(0,0,0,0.4);
-      padding: 40px;
-      border-radius: 20px;
-      animation: pop 1.2s ease;
-    }
-    h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-    }
-    .name {
-      color: #00ffcc;
-      font-size: 26px;
-      font-weight: bold;
-      animation: glow 1.5s infinite alternate;
-    }
-    @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 5px yellow; }
-      to { text-shadow: 0 0 20px white; }
-    }
-  </style>
+/* OVERLAY FOR READABILITY */
+.overlay{
+  /* background:hsla(33, 9%, 81%, 0.902); */
+  background: rgba(255, 248, 225, 0.4);
+
+  padding:20px;
+}
+
+/* HEADER */
+h1{
+  text-align:center;
+  color:#bf360c;
+}
+
+/* GIFT BOX */
+.gift-box{
+  font-size:100px;
+  padding:10px;
+  background:white;
+  border-radius:200px;
+  box-shadow:0 0 25px crimson;
+  cursor:pointer;
+  position:sticky;
+  top:20px;
+  margin:20px auto;
+  width:fit-content;
+  animation: float 1.5s infinite;
+  z-index:10;
+}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+  100%{transform:translateY(0)}
+}
+
+/* BLAST */
+.blast{
+  animation: explode 0.6s forwards;
+}
+@keyframes explode{
+  to{
+    transform:scale(3);
+    opacity:0;
+  }
+}
+
+/* SPARK */
+.spark{
+  position:absolute;
+  width: 30px;px;
+  height:10px;
+  border-radius:50%;
+  animation: fly 10s forwards;
+}
+@keyframes fly{
+  to{
+    transform:translate(var(--x), var(--y));
+    opacity:0;
+  }
+}
+
+/* LONG TEXT */
+.bihu-text{
+  max-width:900px;
+  margin:400px auto;
+  font-size:18px;
+  line-height:2;
+  text-align:justify;
+}
+</style>
 </head>
 
 <body>
 
-<div class="box">
-  <h1>🌸 Happy Rongali Bihu 🌸</h1>
-  <p id="nameText"></p>
-  <p>🎁 Your gift has been received successfully!</p>
-  <p>💃🕺 Celebrate with joy & happiness</p>
-  <p>— ZX Family —</p>
+<div class="overlay">
+
+<h1>🎊  Welcomes To Rongali Bihu Celebration 🎊</h1>
+<!-- <h1 class="title">🎊 Welcomes To Rongali Bihu Celebration 🎊</h1> -->
+
+<div class="gift-box" id="gift" onclick="blastGift()">🎁</div>
+
+<div class="bihu-text">
+
+<b>Rongali Bihu: A Celebration of Life and Renewal</b><br><br>
+
+Rongali Bihu: A Celebration of Life and Renewal
+Rongali Bihu, also known as Bohag Bihu, is the most vibrant and widely celebrated of the three Bihu festivals. Marking the Assamese New Year and the arrival of spring, it is a time of joy, renewal, and togetherness. Celebrated in April during the Assamese month of Bohag, Rongali Bihu welcomes the new agricultural season with exuberance and optimism.
+
+The festival transcends barriers of religion, age, and social status, uniting everyone in a shared expression of happiness. From traditional songs and dances to culinary delights and cultural rituals, Rongali Bihu captures the essence of Assam’s rich heritage and agrarian lifestyle.
+
+Key Rituals and Traditions
+
+
+Bihu Dance and Songs:
+
+The highlight of Rongali Bihu is the Bihu dance, performed by young men and women in traditional attire. The energetic movements and rhythmic beats of the dhol, pepa, and gogona bring the celebrations to life.
+Bihu Geet (songs) accompany the dances, with lyrics celebrating love, nature, and the joys of life.
+Goru Bihu:
+
+The first day of Rongali Bihu is dedicated to cattle, known as Goru Bihu. Farmers bathe and decorate their cattle, honoring them for their contributions to agriculture. This ritual highlights the close bond between Assamese farmers and their livestock.
+Traditional Attire:
+
+Women wear the elegant mekhela chador, while men don dhotis and gamochas, showcasing the beauty of Assamese textiles and craftsmanship.
+Pithas and Delicacies:
+
+Rongali Bihu is incomplete without its delicious treats. Families prepare pithas, larus, and other traditional Assamese dishes, symbolizing the abundance and joy of the new year.
+Cultural Significance
+Rongali Bihu is more than a festival—it is a celebration of life’s cycles and the resilience of the human spirit. The festival’s themes of renewal and community reflect the agrarian roots of Assamese culture, where spring signals hope and new opportunities.
+
+Gratitude to Nature: The festival acknowledges the earth’s bounty and the harmony between humans and the environment.
+Unity and Love: Rongali Bihu fosters a sense of togetherness, as families, friends, and communities come together to celebrate.
+Modern Celebrations of Rongali Bihu
+While traditional customs remain at the heart of Rongali Bihu, modern celebrations have expanded to include cultural events, stage performances, and festivals that attract large audiences. Assamese communities worldwide organize Rongali Bihu programs, bringing the festival’s spirit to global platforms.
+
+At Brihottor London Bihu, we celebrate Rongali Bihu with performances, music, and feasts that transport attendees to the vibrant fields and villages of Assam. Our events are a blend of tradition and innovation, ensuring that the festival resonates with both older and younger generations.
+
+Experience the Joy of Rongali Bihu
+Rongali Bihu is a time to embrace new beginnings, cherish relationships, and honor the cultural roots that define Assam. From the joyful beats of the dhol to the warmth of shared meals, every moment of Rongali Bihu is a reminder of life’s beauty and abundance.
+
+Join us at Brihottor London Bihu to experience the exuberance and cultural richness of Rongali Bihu. Together, let’s celebrate Assam’s most colorful and beloved festival, where tradition meets joy and community thrives.
+<!-- VERY LONG CONTENT (REPEATED INTENTIONALLY) -->
+
+বিহু আমাৰ গৌৰৱ।  
+বিহু আমাৰ পৰিচয়।  
+বিহু আমাৰ আত্মা।  
+
+<br><br>
+
+বিহু আমাৰ গৌৰৱ।  
+বিহু আমাৰ পৰিচয়।  
+বিহু আমাৰ আত্মা।  
+
+<br><br>
+
+বিহু আমাৰ গৌৰৱ।  
+বিহু আমাৰ পৰিচয়।  
+বিহু আমাৰ আত্মা।  
+
+<br><br>
+
+বিহু আমাৰ গৌৰৱ।  
+বিহু আমাৰ পৰিচয়।  
+বিহু আমাৰ আত্মা।  
+
+<br><br>
+
+বিহু আমাৰ গৌৰৱ।  
+বিহু আমাৰ পৰিচয়।  
+বিহু আমাৰ আত্মা।  
+
+<br><br>
+
+<!-- (👉 এই paragraph টো কপি-পেষ্ট কৰি
+যিমান ইচ্ছা তিমান add কৰিব পাৰা  
+page আৰু দীঘল হব — scroll শেষ নহ’ব) -->
+
+</div>
+
 </div>
 
 <script>
-  const userName = localStorage.getItem("bihuName");
+function blastGift(){
+  const gift = document.getElementById("gift");
 
-  if (userName) {
-    document.getElementById("nameText").innerHTML =
-      "🎊 <span class='name'>" + userName + "</span>, Enjoy the Celebration! 🎊";
-  } else {
-    document.getElementById("nameText").innerHTML =
-      "🎊 Enjoy the Celebration! 🎊";
+  // SOUND
+  const ctx = new (window.AudioContext||window.webkitAudioContext)();
+  const osc = ctx.createOscillator();
+  osc.frequency.value = 0;
+  osc.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime+0.15);
+
+  // SPARKS
+  const colors=["red","orange","yellow","green","pink"];
+  for(let i=0;i<15;i++){
+    let s=document.createElement("div");
+    s.className="spark";
+    s.style.background=colors[Math.floor(Math.random()*colors.length)];
+    s.style.setProperty("--x",(Math.random()*240-120)+"px");
+    s.style.setProperty("--y",(Math.random()*240-120)+"px");
+    gift.appendChild(s);
   }
+
+  gift.classList.add("blast");
+
+  setTimeout(()=>{
+    window.location.href="index.html";
+  },700);
+}
 </script>
 
 </body>

